@@ -7,14 +7,7 @@ const app = new Koa();
 require('dotenv').config();
 
 let corsConfig = {
-    origin: function (ctx) {
-        const allowedOrigins = ['http://localhost:3000'];
-        const requestOrigin = ctx.get('Origin');
-        if (allowedOrigins.includes(requestOrigin)) {
-            return requestOrigin;
-        }
-        return null;
-    },
+    origin: "*",
     allowMethods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
     allowHeaders: ['Content-Type', 'Authorization', 'Accept'],
     exposeHeaders: ['WWW-Authenticate', 'Server-Authorization'],
