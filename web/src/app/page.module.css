@@ -312,6 +312,30 @@
   position: relative;
 }
 
+.register {
+  font-size: 14px;
+}
+
+.register span {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;
+  user-select: none;
+}
+
+.registerSuccessTips {
+  width: 100%;
+  text-align: left;
+  font-size: 12px;
+  font-weight: bold;
+  color: green;
+  margin: 0px 0px 20px 0px;
+}
+
+.registerSuccessTips .code {
+  font-size: 16px;
+}
+
 /* Enable hover only on non-touch devices */
 @media (hover: hover) and (pointer: fine) {
   .card:hover {

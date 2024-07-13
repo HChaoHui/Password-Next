@@ -1,31 +1,13 @@
 const router = require('./router');
-const speakeasy = require('speakeasy');
-const QRCode = require('qrcode');
-
-const get2faSecretQRCode = (otpauth_url) => {
-
-    return new Promise((resolve, reject) => {
-        QRCode.toDataURL(otpauth_url, (err, data_url) => {
-            if (err) {
-                reject(err);
-            }
-            resolve(data_url);
-        });
-    });
-
-}
+const getSecretQRCode = require('../../utils/get2faSecret');
 
 const get2faSecret = async (ctx) => {
 
-    const secret = speakeasy.generateSecret({ length: 20 });
 
-    const QRCode = await get2faSecretQRCode(secret.otpauth_url);
+    const data = await getSecretQRCode()
 
     ctx.body = {
-        data: {
-            secret: secret.base32,
-            QRCode: QRCode,
-        },
+        data,
         status: 200,
         message: 'success',
     }

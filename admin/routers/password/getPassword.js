@@ -5,17 +5,23 @@ const searchSqliteTableData = require('../../utils/database/searchSqliteTableDat
 
 const getPassword = async (ctx) => {
 
-    const db = getSqlite(ctx.state.userData.user, 'password')
-
-    const result = await searchSqliteTableData(db, 'password', {});
-
-    db.close();
-
-    ctx.body = {
-        data: result,
-        status: 200,
-        message: 'success',
+    try {
+        const db = getSqlite(ctx.state.userData.user, 'password')
+        const result = await searchSqliteTableData(db, 'password', {});
+        db.close();
+        ctx.body = {
+            data: result,
+            status: 200,
+            message: 'success',
+        }
+    } catch (error) {
+        ctx.body = {
+            data: [],
+            status: 200,
+            message: 'success',
+        }
     }
+
 };
 
 router.get('/getPassword', checkToken, getPassword);

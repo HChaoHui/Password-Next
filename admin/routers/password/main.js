@@ -6,6 +6,7 @@ const get2fatoken_router = require('./get2faToken');
 const getpassword_router = require('./getPassword');
 const deletepassword_router = require('./deletePassword');
 const editpassword_router = require('./editPassword');
+const register_router = require('./register');
 
 const routers = [
     addpassword_router,
@@ -15,7 +16,8 @@ const routers = [
     get2fatoken_router,
     getpassword_router,
     deletepassword_router,
-    editpassword_router
+    editpassword_router,
+    register_router
 ];
 
 module.exports = routers;

@@ -23,10 +23,10 @@ const searchSqliteTableData = (db, tableName, conditions = {}, useFuzzySearch = 
 }
 
 // 查询user数据库userToken表的数据
-(async () => {
-    const db = require('./getSqlite')('user', 'user');
-    console.log(await searchSqliteTableData(db, 'userToken', { }));
-})() 
+// (async () => {
+//     const db = require('./getSqlite')('user', 'user');
+//     console.log(await searchSqliteTableData(db, 'userToken', { }));
+// })() 
  
 // 查询Admin数据库password表的数据
 // (async () => {

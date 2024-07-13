@@ -8,8 +8,8 @@ import { get2faToken } from "@/apis/get2faToken";
 import { deletePassword } from "@/apis/deletePassword";
 import { addPassword } from "@/apis/addPassword";
 import { editNewPassword } from "@/apis/editNewPassword";
+import { register } from "@/apis/register";
 import Loading from "@/components/loading/page";
-import { get } from "http";
 
 export default function Home() {
 
@@ -36,6 +36,18 @@ export default function Home() {
   const [settingIndex, setSettingIndex] = useState<any>(null);
 
   const [loginTips, setLoginTips] = useState("");
+
+  const [registerTips, setRegisterTips] = useState("");
+
+  const [registerToken,setRegisterToken] = useState("");
+
+  const [registerStatus, setRegisterStatus] = useState(false);
+
+  const [registerRequestStatus, setRegisterRequestStatus] = useState(false);
+
+  const [registerSuccessStatus, setRegisterSuccessStatus] = useState(false);
+
+  const [registerUserName, setRegisterUserName] = useState("");
 
   const [twofaIndex, setTwofaIndex] = useState<any>(null);
 
@@ -73,6 +85,24 @@ export default function Home() {
       loginRequest(token)
     }
 
+  }
+
+  const registerUser = () => {
+    if (registerUserName) {
+
+      setRegisterRequestStatus(true)
+
+      register({ user: registerUserName }).then(res => {
+        console.log(res);
+        setRegisterToken(res.data.secretQRCode.secret)
+        setRegisterSuccessStatus(true)
+        setRegisterRequestStatus(false)
+      }).catch(err => {
+        setRegisterRequestStatus(false)
+        setRegisterTips(err.response.data.msg)
+      })
+
+    }
   }
 
   const loginRequest = (token: string) => {
@@ -221,12 +251,38 @@ export default function Home() {
 
       <div className={styles.center}>
 
-        {!localToken && (
+        {(!localToken && !registerStatus) && (
           <div className={styles.loginForm}>
             <textarea className={styles.loginText} placeholder="Login With Token" autoFocus value={token} onChange={(e) => { setToken(e.target.value); setLoginTips("") }}></textarea>
             <p className={styles.loginTips}>{loginTips}</p>
 
             <button className={styles.loginButton} onClick={() => { loginUser() }}>Login</button>
+            <p className={styles.register}>No account? <span onClick={() => { setRegisterStatus(true) }}>Click to register.</span></p>
+          </div>
+        )}
+
+        {(!localToken && registerStatus) && (
+          <div className={styles.loginForm}>
+            <textarea className={styles.loginText} placeholder="Please enter the username you wish to register." autoFocus value={registerUserName} onChange={(e) => { setRegisterUserName(e.target.value); setRegisterTips(""), setRegisterSuccessStatus(false) }}></textarea>
+            <p className={styles.loginTips}>{registerTips}</p>
+
+            {registerSuccessStatus && (
+              <p className={styles.registerSuccessTips}>
+                Register Success.<br />
+                Token: <code className={styles.code}>{registerToken}</code><br />
+                Please keep the Token safe, as it will not appear again and serves as your sole login credential.
+              </p>
+            )}
+
+            {!registerRequestStatus && (
+              <button className={styles.loginButton} onClick={() => { registerUser() }}>Register</button>
+            )}
+
+            {registerRequestStatus && (
+              <button className={styles.loginButton}>Register...</button>
+            )}
+
+            <p className={styles.register}>Already have an account? <span onClick={() => { setRegisterStatus(false) }}>Click to log in.</span></p>
           </div>
         )}
 
