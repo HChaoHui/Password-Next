@@ -22,6 +22,7 @@ The backend uses Koa for writing the API, and Sqlite for data storage.
 ## Example
 
 ![Image](https://raw.githubusercontent.com/HChaoHui/Password-Next/main/example/login.png)
+![Image](https://raw.githubusercontent.com/HChaoHui/Password-Next/main/example/register.png)
 ![Image](https://raw.githubusercontent.com/HChaoHui/Password-Next/main/example/list.png)
 ![Image](https://raw.githubusercontent.com/HChaoHui/Password-Next/main/example/add.png)
 ![Image](https://raw.githubusercontent.com/HChaoHui/Password-Next/main/example/handle.png)
