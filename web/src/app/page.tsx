@@ -93,8 +93,7 @@ export default function Home() {
       setRegisterRequestStatus(true)
 
       register({ user: registerUserName }).then(res => {
-        console.log(res);
-        setRegisterToken(res.data.secretQRCode.secret)
+        setRegisterToken(res.data.token)
         setRegisterSuccessStatus(true)
         setRegisterRequestStatus(false)
       }).catch(err => {

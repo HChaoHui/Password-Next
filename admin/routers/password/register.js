@@ -2,7 +2,7 @@ const router = require('./router');
 const searchSqliteTableData = require('../../utils/database/searchSqliteTableData');
 const insertSqliteTableData = require('../../utils/database/insertSqliteTableData');
 const getSqlite = require('../../utils/database/getSqlite');
-const getSecretQRCode = require('../../utils/get2faSecret');
+const getRandomPassword = require('../../utils/randomPassword');
 
 const isNonEmptyStringWithoutSpaces = (param) => {
     return typeof param === 'string' && param.replace(/\s+/g, '').length > 0;
@@ -42,14 +42,14 @@ const authUser = async (ctx, next) => {
         return;
     }
 
-    const secretQRCode = await getSecretQRCode();
+    const token = getRandomPassword(30);
 
-    const insertInfo = await insertSqliteTableData(db, 'userToken', { user: ctx.state.user, token: secretQRCode.secret });
+    const insertInfo = await insertSqliteTableData(db, 'userToken', { user: ctx.state.user, token });
 
     ctx.state.nlog(insertInfo)
 
     ctx.state.responseData = {
-        secretQRCode,
+        token,
         user: ctx.state.user,
     };
 
