@@ -37,9 +37,11 @@ export default function Home() {
 
   const [loginTips, setLoginTips] = useState("");
 
+  const [loginStatus, setLoginStatus] = useState(false);
+
   const [registerTips, setRegisterTips] = useState("");
 
-  const [registerToken,setRegisterToken] = useState("");
+  const [registerToken, setRegisterToken] = useState("");
 
   const [registerStatus, setRegisterStatus] = useState(false);
 
@@ -82,6 +84,7 @@ export default function Home() {
   const loginUser = () => {
 
     if (token) {
+      setLoginStatus(true)
       loginRequest(token)
     }
 
@@ -113,11 +116,13 @@ export default function Home() {
       const { token } = res.data;
       setLocalToken(token)
       localStorage.setItem("localToken", token);
+      setLoginStatus(false)
       getPasswordRequest()
     }).catch(err => {
       localStorage.removeItem("localToken");
       setLoginTips(err.response.data.msg)
       setLoadingStatus(false)
+      setLoginStatus(false)
     })
 
   }
@@ -255,7 +260,14 @@ export default function Home() {
             <textarea className={styles.loginText} placeholder="Login With Token" autoFocus value={token} onChange={(e) => { setToken(e.target.value); setLoginTips("") }}></textarea>
             <p className={styles.loginTips}>{loginTips}</p>
 
-            <button className={styles.loginButton} onClick={() => { loginUser() }}>Login</button>
+            {!loginStatus && (
+              <button className={styles.loginButton} onClick={() => { loginUser() }}>Login</button>
+            )}
+
+            {loginStatus && (
+              <button className={styles.loginButton}>Login...</button>
+            )}
+
             <p className={styles.register}>No account? <span onClick={() => { setRegisterStatus(true) }}>Click to register.</span></p>
           </div>
         )}
