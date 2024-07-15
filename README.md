@@ -60,7 +60,8 @@ Password-Next is a minimalist password manager designed to securely store your p
    ```bash
    docker run -p 3000:3000 -p 19899:19899 -e NEXT_PUBLIC_API_URL=http://127.0.0.1:19899 nocn/password_next
    ```  
-    replace "http://127.0.0.1:19899" with your API address
+    replace "http://127.0.0.1:19899" with your API address  
+    Map the data persistence to the 'db' directory within the admin folder.
 
 ### Demo
 
