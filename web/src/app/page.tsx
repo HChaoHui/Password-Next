@@ -321,7 +321,7 @@ export default function Home() {
                   {item.twofa && (
                     <div className={styles.passwordOption}>
                       <span className={styles.passwordLabel}>2fa: </span>
-                      <span onClick={() => { show2fa(item.twofa, index) }}>{twofaIndex == index ? twofa : <span style={{ userSelect: 'none' }}>******</span>}</span>
+                      <span>{twofaIndex == index ? twofa : <span style={{ userSelect: 'none' }} onClick={() => { show2fa(item.twofa, index) }}>******</span>}</span>
                     </div>
                   )}
 
