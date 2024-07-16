@@ -218,6 +218,8 @@ export default function Home() {
 
     setEditPasswordStatus(true)
 
+    setEditAddPasswordStatus(true)
+
     editNewPassword(data).then(res => {
       getPasswordRequest();
     })
